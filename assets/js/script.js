@@ -110,6 +110,7 @@ function getMousePos(e) {
     x: e.clientX - rect.left,
     y: e.clientY - rect.top
   };
+<<<<<<< HEAD
 }
 
 // Event listener for mouse down event
@@ -160,3 +161,48 @@ function setTheme(theme) {
   localStorage.setItem("movie-theme", theme);
 }
 setTheme(localStorage.getItem("movie-theme") || chathams_blue);
+=======
+}
+
+// Event listener for mouse down event
+canvas.addEventListener("mousedown", e => {
+  isDrawing = true;
+  const pos = getMousePos(e);
+  ctx.strokeStyle = drawColor; // Set stroke color
+  ctx.lineJoin = "round";
+  ctx.lineCap = "round";
+  ctx.lineWidth = 5;
+  ctx.beginPath(); // Start a new path
+  ctx.moveTo(pos.x, pos.y); // Move to starting point
+});
+
+// Event listener for mouse move event
+canvas.addEventListener("mousemove", e => {
+  if (isDrawing) {
+    const pos = getMousePos(e);
+    ctx.lineTo(pos.x, pos.y); // Draw line to current point
+    ctx.stroke(); // Stroke the path
+  }
+});
+
+// Event listener for mouse up event
+canvas.addEventListener("mouseup", () => {
+  isDrawing = false;
+});
+
+// Function to draw
+function draw(e) {
+  if (!isDrawing) return; // Stop if not drawing
+  const rect = canvas.getBoundingClientRect();
+  const x = e.clientX - rect.left;
+  const y = e.clientY - rect.top;
+  ctx.strokeStyle = drawColor; // Set stroke color
+  ctx.lineJoin = "round";
+  ctx.lineCap = "round";
+  ctx.lineWidth = 5;
+  ctx.lineTo(x, y);
+  ctx.stroke();
+  ctx.beginPath(); // Start a new path for continuous drawing
+  ctx.moveTo(x, y);
+}
+>>>>>>> 48926e46b9e7b20fca7efafd3e5d8e80800ba162
